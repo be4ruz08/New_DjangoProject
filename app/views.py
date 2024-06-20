@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from app.forms import ProductForm, ProductModelForm, CustomerForm
-from app.models import Product, Customer
+from app.forms import ProductForm, ProductModelForm
+from app.models import Product
 
 
 # Create your views here.
@@ -47,29 +47,4 @@ def add_product(request):
     return render(request, 'app/add-product.html', context)
 
 
-def customers(request):
-    customers = Customer.objects.all().order_by('-id')
-    context = {
-        'customers': customers
-    }
-    return render(request, 'app/customers.html', context)
 
-def customer_detail(request, customer_id):
-    customer = get_object_or_404(Customer, id=customer_id)
-    context = {
-        'customer': customer
-    }
-    return render(request, 'app/customer_detail.html', context)
-
-
-def add_customer(request):
-    form = CustomerForm()
-    if request.method == 'POST':
-        form = CustomerForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('customers')
-    context = {
-        'form': form
-    }
-    return render(request, 'app/add_customer.html', context)
