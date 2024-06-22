@@ -11,8 +11,8 @@ admin.site.register(Attribute)
 admin.site.register(AttributeValue)
 admin.site.register(ProductAttribute)
 
-admin.site.unregister(User)
-admin.site.unregister(Group)
+# admin.site.unregister(User)
+# admin.site.unregister(Group)
 
 
 class ProductModelAdmin(admin.ModelAdmin):
