@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 from app.views import index, product_detail, add_product
-from customer.views.auth import login_page
+from customer.views.auth import login_page, logout_page, register_page
 from customer.views.customers import customers, add_customer, delete_customer, edit_customer
-from customer.views.logout import logout_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,5 +15,6 @@ urlpatterns = [
     path('customer/<int:pk>/delete', delete_customer, name='delete'),
     path('customer/<int:pk>/update', edit_customer, name='edit'),
     path('login-page/', login_page, name='login'),
-    path('logout/', logout_view, name='logout'),
+    path('logout-page/', logout_page, name='logout'),
+    path('register-page', register_page, name='register'),
 ]
