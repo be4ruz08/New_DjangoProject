@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'customer',
+    # 'customer.apps.CustomerConfig',
+    # 'login.apps.LoginConfig',
 ]
 
 MIDDLEWARE = [
@@ -52,10 +55,17 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'app.urls'
 
+
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'app/templates']
+        'DIRS': [
+            os.path.join(BASE_DIR, 'app', 'templates/')
+        ]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -69,6 +79,10 @@ TEMPLATES = [
     },
 ]
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
@@ -78,7 +92,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME':  os.path.join(BASE_DIR, 'db.sqlite3' ),
     }
 }
 
@@ -107,12 +121,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
 USE_TZ = True
-import os
 
 
 # Static files (CSS, JavaScript, Images)
@@ -128,3 +141,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'app/media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'customer.User'
