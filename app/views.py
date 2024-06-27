@@ -45,6 +45,3 @@ def add_product(request):
         'form': form
     }
     return render(request, 'app/add-product.html', context)
-
-
-
