@@ -1,6 +1,7 @@
 import csv
 import json
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models.functions import Cast
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -19,8 +20,18 @@ def customers(request):
             Q(full_name__icontains=search_query) | Q(address__icontains=search_query))
     else:
         customer_list = Customer.objects.all()
+
+    paginator = Paginator(customer_list, 4)
+    page_number = request.GET.get('page')
+    try:
+        customers = paginator.page(page_number)
+    except PageNotAnInteger:
+        customers = paginator.page(1)
+    except EmptyPage:
+        customers = paginator.page(paginator.num_pages)
+
     context = {
-        'customer_list': customer_list,
+        'customers': customers,
     }
     return render(request, 'customer/customer-list.html', context)
 

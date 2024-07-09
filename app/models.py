@@ -22,7 +22,6 @@ class Product(models.Model):
             })
         return attributes
 
-
     @property
     def discounted_price(self):
         if self.discount > 0:
