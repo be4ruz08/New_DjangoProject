@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'customer',
+    'import_export',
+    'adminsortable2'
     # 'customer.apps.CustomerConfig',
     # 'login.apps.LoginConfig',
 ]
@@ -147,3 +149,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'app/media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'customer.User'
+
+

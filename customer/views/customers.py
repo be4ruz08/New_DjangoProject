@@ -1,14 +1,12 @@
 import csv
-import json
 from django.contrib import messages
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models.functions import Cast
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.db.models import Q, TextField
 from customer.forms import CustomerModelForm
 from customer.models import Customer
-
+import json
+import openpyxl
 
 # Create your views here.
 
@@ -20,18 +18,8 @@ def customers(request):
             Q(full_name__icontains=search_query) | Q(address__icontains=search_query))
     else:
         customer_list = Customer.objects.all()
-
-    paginator = Paginator(customer_list, 4)
-    page_number = request.GET.get('page')
-    try:
-        customers = paginator.page(page_number)
-    except PageNotAnInteger:
-        customers = paginator.page(1)
-    except EmptyPage:
-        customers = paginator.page(paginator.num_pages)
-
     context = {
-        'customers': customers,
+        'customer_list': customer_list,
     }
     return render(request, 'customer/customer-list.html', context)
 
@@ -76,3 +64,39 @@ def edit_customer(request, pk):
         'form': form,
     }
     return render(request, 'customer/update-customer.html', context)
+
+
+def export_data(request):
+    format = request.GET.get('format', 'csv')
+    if format == 'csv':
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=customers.csv'
+        writer = csv.writer(response)
+        writer.writerow(['Id', 'Full Name', 'Email', 'Phone Number', 'Address'])
+        for customer in Customer.objects.all():
+            writer.writerow([customer.id, customer.full_name, customer.email, customer.phone_number, customer.address])
+
+
+    elif format == 'json':
+        response = HttpResponse(content_type='application/json')
+        data = list(Customer.objects.all().values('full_name', 'email', 'phone_number', 'address'))
+        # response.content = json.dumps(data, indent=4)
+        response.write(json.dumps(data, indent=4))
+        response['Content-Disposition'] = 'attachment; filename=customers.json'
+    elif format == 'xlsx':
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=customers.xlsx'
+
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.append(['Id', 'Full Name', 'Email', 'Phone Number', 'Address'])
+        customers = Customer.objects.all()
+        for customer in customers:
+            ws.append([customer.id, customer.full_name, customer.email, customer.phone_number, customer.address])
+        wb.save(response)
+
+    else:
+        response = HttpResponse(status=404)
+        response.content = 'Bad request'
+
+    return response
