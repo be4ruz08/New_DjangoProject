@@ -16,7 +16,7 @@
                 <span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
             <a class="navbar-brand me-1 me-sm-3" href="../../index.html">
                 <div class="d-flex align-items-center"><img class="me-2"
-                                                            src="{% static  'app/assets/img/icons/spot-illustrations/falcon.png' %}"
+                                                            src="{% static  'assets/img/icons/spot-illustrations/falcon.png' %}"
                                                             alt="" width="40"/><span
                         class="font-sans-serif">falcon</span>
                 </div>
@@ -90,7 +90,7 @@
                                 <div class="d-flex align-items-center">
                                     <div class="file-thumbnail me-2"><img
                                             class="border h-100 w-100 fit-cover rounded-3"
-                                            src="{% static  'app/assets/img/products/3-thumb.png' %}" alt=""/></div>
+                                            src="{% static  'assets/img/products/3-thumb.png' %}" alt=""/></div>
                                     <div class="flex-1">
                                         <h6 class="mb-0 title">iPhone</h6>
                                         <p class="fs--2 mb-0 d-flex"><span class="fw-semi-bold">Antony</span><span
@@ -101,7 +101,7 @@
                                 <a class="dropdown-item px-card py-2" href="#!">
                                     <div class="d-flex align-items-center">
                                         <div class="file-thumbnail me-2"><img class="img-fluid"
-                                                                              src="{% static  'app/assets/img/icons/zip.png' %}"
+                                                                              src="{% static  'assets/img/icons/zip.png' %}"
                                                                               alt=""/></div>
                                         <div class="flex-1">
                                             <h6 class="mb-0 title">Falcon v1.8.2</h6>
@@ -117,7 +117,7 @@
                                                    href="../../pages/user/profile.html">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-l status-online me-2">
-                                        <img class="rounded-circle" src="{% static  'app/assets/img/team/1.jpg' %}"
+                                        <img class="rounded-circle" src="{% static  'assets/img/team/1.jpg' %}"
                                              alt=""/>
 
                                     </div>
@@ -130,7 +130,7 @@
                                 <a class="dropdown-item px-card py-2" href="../../pages/user/profile.html">
                                     <div class="d-flex align-items-center">
                                         <div class="avatar avatar-l me-2">
-                                            <img class="rounded-circle" src="{% static  'app/assets/img/team/2.jpg' %}"
+                                            <img class="rounded-circle" src="{% static  'assets/img/team/2.jpg' %}"
                                                  alt=""/>
 
                                         </div>
@@ -143,7 +143,7 @@
                                 <a class="dropdown-item px-card py-2" href="../../pages/user/profile.html">
                                     <div class="d-flex align-items-center">
                                         <div class="avatar avatar-l me-2">
-                                            <img class="rounded-circle" src="{% static  'app/assets/img/team/3.jpg' %}"
+                                            <img class="rounded-circle" src="{% static  'assets/img/team/3.jpg' %}"
                                                  alt=""/>
 
                                         </div>
@@ -209,7 +209,7 @@
                                             <div class="notification-avatar">
                                                 <div class="avatar avatar-2xl me-3">
                                                     <img class="rounded-circle"
-                                                         src="{% static  'app/assets/img/team/1-thumb.png' %}" alt=""/>
+                                                         src="{% static  'assets/img/team/1-thumb.png' %}" alt=""/>
 
                                                 </div>
                                             </div>
@@ -246,7 +246,7 @@
                                             <div class="notification-avatar">
                                                 <div class="avatar avatar-2xl me-3">
                                                     <img class="rounded-circle"
-                                                         src="{% static  'app/assets/img/icons/weather-sm.jpg' %}"
+                                                         src="{% static  'assets/img/icons/weather-sm.jpg' %}"
                                                          alt=""/>
 
                                                 </div>
@@ -267,7 +267,7 @@
                                             <div class="notification-avatar">
                                                 <div class="avatar avatar-xl me-3">
                                                     <img class="rounded-circle"
-                                                         src="{% static  'app/assets/img/logos/oxford.png' %}" alt=""/>
+                                                         src="{% static  'assets/img/logos/oxford.png' %}" alt=""/>
 
                                                 </div>
                                             </div>
@@ -286,7 +286,7 @@
                                             <div class="notification-avatar">
                                                 <div class="avatar avatar-xl me-3">
                                                     <img class="rounded-circle"
-                                                         src="{% static  'app/assets/img/team/10.jpg' %}"
+                                                         src="{% static  'assets/img/team/10.jpg' %}"
                                                          alt=""/>
 
                                                 </div>
@@ -314,7 +314,7 @@
                                                  role="button" data-bs-toggle="dropdown" aria-haspopup="true"
                                                  aria-expanded="false">
                     <div class="avatar avatar-xl">
-                        <img class="rounded-circle" src="{% static  'app/assets/img/team/3-thumb.png' %}" alt=""/>
+                        <img class="rounded-circle" src="{% static  'assets/img/team/3-thumb.png' %}" alt=""/>
 
                     </div>
                 </a>
@@ -380,7 +380,7 @@
                             <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span
                                     class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span><span
                                     class="d-none d-sm-inline-block ms-1">Filter</span></button>
-                            <form action="{% url 'customer:export_data' %}">
+                            <form action="{% url 'export_data' %}">
                                 <select id="format" name="format">
                                     <option value="none" selected>...</option>
                                     <option value="json">json</option>
