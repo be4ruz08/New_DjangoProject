@@ -3,8 +3,10 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic.edit import CreateView
-from customer.forms import LoginForm, RegisterModelForm
+from customer.forms import LoginForm, RegisterModelForm, EmailForm
 from django.contrib.auth.decorators import permission_required
+from django.core.mail import send_mail
+from django.http import HttpResponse
 
 
 # def login_page(request):
@@ -76,3 +78,17 @@ class RegisterView(CreateView):
         user.save()
         login(self.request, user)
         return redirect('customers')
+
+
+def send_email_view(request):
+    if request.method == 'POST':
+        form = EmailForm(request.POST)
+        if form.is_valid():
+            recipient = form.cleaned_data['recipient']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            send_mail(subject, message, 'your_email@example.com', [recipient])
+            return HttpResponse('Email sent successfully')
+    else:
+        form = EmailForm()
+    return render(request, 'send_email.html', {'form': form})
