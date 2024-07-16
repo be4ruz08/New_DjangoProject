@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from app.views import ProductListView, ProductDetailTemplateView, AddProductView, EditProductTemplateView, ProductDeleteView
-from customer.views.auth import login_page, logout_page, register_page
+from customer.views.auth import LoginPageView, logout_page, RegisterView
 from customer.views.customers import CustomerListTemplateView, AddCustomerTemplateView, DeleteCustomerTemplateView, EditCustomerTemplateView, ExportDataTemplateView
 
 
@@ -17,7 +17,7 @@ urlpatterns = [
     path('customer/<int:pk>/delete', DeleteCustomerTemplateView.as_view(), name='delete'),
     path('customer/<int:pk>/update', EditCustomerTemplateView.as_view(), name='edit'),
     path('export-data/', ExportDataTemplateView.as_view(), name='export_data'),
-    path('login-page/', login_page, name='login'),
+    path('login-page/', LoginPageView.as_view(), name='login'),
     path('logout-page/', logout_page, name='logout'),
-    path('register-page', register_page, name='register'),
+    path('register-page', RegisterView.as_view(), name='register'),
 ]
