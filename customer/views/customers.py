@@ -4,8 +4,8 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
-
-from customer.forms import CustomerModelForm
+from django.core.mail import send_mail
+from customer.forms import CustomerModelForm, AuthenticationForm
 from customer.models import Customer
 import json
 import openpyxl
@@ -113,3 +113,18 @@ class ExportDataTemplateView(TemplateView):
             ws.append([customer.id, customer.full_name, customer.email, customer.phone_number, customer.address])
         wb.save(response)
         return response
+
+
+def send_email_view(request):
+    sent = False
+    if request.method == 'POST':
+        form = AuthenticationForm(request.POST)
+        if form.is_valid():
+            recipient = form.cleaned_data['recipient']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            send_mail(subject, message, 'bexruzbxdrv@gmail.com', [recipient])
+            return HttpResponse('Email sent successfully')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'email/share_email.html', {'form': form})

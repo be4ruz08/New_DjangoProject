@@ -21,7 +21,8 @@ from django.urls import path, include
 from config import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('app/', include('app.urls')),
-    path('customer/', include('customer.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  path('admin/', admin.site.urls),
+                  path('app/', include('app.urls'),name='product'),
+                  path('customer/', include('customer.urls'), name='customer'),
+                  path('accounts/', include('registration.backends.simple.urls')),
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'app',
     'customer',
     'import_export',
-    'adminsortable2'
+    'adminsortable2',
+    'registration'
     # 'customer.apps.CustomerConfig',
     # 'login.apps.LoginConfig',
 ]
@@ -156,4 +157,9 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'bexruzbxdrv@gmail.com'
 EMAIL_HOST_PASSWORD = 'evas bgrz ties csmf'
+
+
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = 'register-page/'
 
