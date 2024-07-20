@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.urls import path
 from app.views import ProductListView, ProductDetailTemplateView, AddProductView, EditProductTemplateView, ProductDeleteView
-from customer.views.auth import LoginPageView, logout_page, RegisterFormView
-from customer.views.customers import CustomerListTemplateView, AddCustomerTemplateView, DeleteCustomerTemplateView, EditCustomerTemplateView, ExportDataTemplateView
-
+from customer.views.auth import LoginPageView, logout_page, RegisterFormView, LoginPage, verify_email_done, \
+    verify_email_confirm
+from customer.views.customers import CustomerListTemplateView, AddCustomerTemplateView, DeleteCustomerTemplateView, \
+    EditCustomerTemplateView, ExportDataTemplateView, send_email_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,7 +18,10 @@ urlpatterns = [
     path('customer/<int:pk>/delete', DeleteCustomerTemplateView.as_view(), name='delete'),
     path('customer/<int:pk>/update', EditCustomerTemplateView.as_view(), name='edit'),
     path('export-data/', ExportDataTemplateView.as_view(), name='export_data'),
-    path('login-page/', LoginPageView.as_view(), name='login'),
+    path('login-page/', LoginPage.as_view(), name='login'),
     path('logout-page/', logout_page, name='logout'),
     path('register-page', RegisterFormView.as_view(), name='register'),
+    path('sending-mail/', send_email_view, name='share_mail'),
+    path('verify-email-done/', verify_email_done, name='verify_email_done'),
+    path('verify-email-confirm/<uidb64>/<token>/', verify_email_confirm, name='verify_email_confirm'),
 ]

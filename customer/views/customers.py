@@ -127,4 +127,4 @@ def send_email_view(request):
             return HttpResponse('Email sent successfully')
     else:
         form = AuthenticationForm()
-    return render(request, 'email/share_email.html', {'form': form})
+    return render(request, 'email/verify_email_confirm.html', {'form': form})

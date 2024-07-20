@@ -157,9 +157,26 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'bexruzbxdrv@gmail.com'
 EMAIL_HOST_PASSWORD = 'evas bgrz ties csmf'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
-ACCOUNT_ACTIVATION_DAYS = 7
-REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = 'register-page/'
+# bexruzbxdrv@gmail.com
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+]
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1022212913255-6evh65hkek2t826pb7l56jab8ufbqc4m.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '890706076432284'
+SOCIAL_AUTH_FACEBOOK_SECRET = '5c3b3d565c2a292de51a64dfd6659ef1'
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['bexruzbxdrv@gmail.com']
+
+SOCIAL_AUTH_TWITTER_KEY = 'yekjfDuz6QYJ4cQjM6VEzMHgw'
+SOCIAL_AUTH_TWITTER_SECRET = 'o8l0yqFyUKiOStAJlT7vntLk3P8EfnqcSeyzo92AknDGdedpZX'
+
+LOGIN_REDIRECT_URL = '/customer/customer-list/'
 
