@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Annotations</title>
+</head>
+<body>
+    <h1>Customer Annotations</h1>
+    <h2>Customers with Order Count</h2>
+    <ul>
+    {% for customer in customers_with_order_count %}
+        <li>{{ customer.full_name }}: {{ customer.order_count }}</li>
+    {% endfor %}
+    </ul>
+    
+    <h2>Customers with Total Order Value</h2>
+    <ul>
+    {% for customer in customers_with_total_order_value %}
+        <li>{{ customer.full_name }}: {{ customer.total_order_value }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

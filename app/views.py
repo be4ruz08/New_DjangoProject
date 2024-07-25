@@ -5,6 +5,7 @@ from app.forms import ProductForm, ProductModelForm
 from app.models import Product
 from django.views import View
 from django.views.generic import TemplateView
+from django.db.models import Avg, Count, Max, Min, Sum, F
 
 
 # Create your views here.
@@ -171,3 +172,27 @@ class EditProductTemplateView(TemplateView):
         if form.is_valid():
             form.save()
             return redirect('index')
+
+
+def product_statistics_view(request):
+    total_products = Product.objects.aggregate(total=Count('id'))
+    average_price = Product.objects.aggregate(average_price=Avg('price'))
+    total_quantity = Product.objects.aggregate(total_quantity=Sum('quantity'))
+
+    context = {
+        'total_products': total_products['total'],
+        'average_price': average_price['average_price'],
+        'total_quantity': total_quantity['total_quantity'],
+    }
+    return render(request, 'app/product_statistics.html', context)
+
+
+def product_annotations_view(request):
+    products_with_total_value = Product.objects.annotate(total_value=F('price') * F('quantity'))
+    products_with_order_count = Product.objects.annotate(order_count=Count('order'))
+
+    context = {
+        'products_with_total_value': products_with_total_value,
+        'products_with_order_count': products_with_order_count,
+    }
+    return render(request, 'app/product_annotations.html', context)

@@ -6,9 +6,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.core.mail import send_mail
 from customer.forms import CustomerModelForm, AuthenticationForm
-from customer.models import Customer
+from customer.models import Customer, Order
 import json
 import openpyxl
+from django.db.models import Avg, Count, Max, Min, Sum, F
+
 
 # Create your views here.
 
@@ -128,3 +130,31 @@ def send_email_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'email/verify_email_confirm.html', {'form': form})
+
+
+def order_statistics_view(request):
+    total_orders = Order.objects.aggregate(total=Count('id'))
+    total_order_value = Order.objects.aggregate(total_value=Sum(F('price') * F('quantity')))
+    average_order_price = Order.objects.aggregate(average_price=Avg(F('price') * F('quantity')))
+    max_order_price = Order.objects.aggregate(max_price=Max(F('price') * F('quantity')))
+    min_order_price = Order.objects.aggregate(min_price=Min(F('price') * F('quantity')))
+
+    context = {
+        'total_orders': total_orders['total'],
+        'total_order_value': total_order_value['total_value'],
+        'average_order_price': average_order_price['average_price'],
+        'max_order_price': max_order_price['max_price'],
+        'min_order_price': min_order_price['min_price'],
+    }
+    return render(request, 'customer/order_statistics.html', context)
+
+
+def customer_annotations_view(request):
+    customers_with_order_count = Customer.objects.annotate(order_count=Count('order'))
+    customers_with_total_order_value = Customer.objects.annotate(total_order_value=Sum(F('order__price') * F('order__quantity')))
+
+    context = {
+        'customers_with_order_count': customers_with_order_count,
+        'customers_with_total_order_value': customers_with_total_order_value,
+    }
+    return render(request, 'customer/customer_annotations.html', context)

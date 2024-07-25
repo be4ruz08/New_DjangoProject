@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'customer',
     'import_export',
     'adminsortable2',
-    'registration'
+    'registration',
+    'social_django'
     # 'customer.apps.CustomerConfig',
     # 'login.apps.LoginConfig',
 ]

@@ -26,7 +26,9 @@ class Customer(models.Model):
 
     class Meta:
         verbose_name_plural = 'Customers'
+
         # verbose_name = 'Xaridor'
+
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -54,3 +56,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def pretty_split_by_email(self):
         return self.email.split('@')[0]
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=255)
+
+
+class Order(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateTimeField(auto_now_add=True)

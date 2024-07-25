@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Annotations</title>
+</head>
+<body>
+    <h1>Product Annotations</h1>
+    <h2>Products with Total Value</h2>
+    <ul>
+    {% for product in products_with_total_value %}
+        <li>{{ product.name }}: {{ product.total_value }}</li>
+    {% endfor %}
+    </ul>
+    
+    <h2>Products with Order Count</h2>
+    <ul>
+    {% for product in products_with_order_count %}
+        <li>{{ product.name }}: {{ product.order_count }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>

@@ -5,6 +5,8 @@ from customer.views.auth import LoginPageView, logout_page, RegisterFormView, Lo
     verify_email_confirm
 from customer.views.customers import CustomerListTemplateView, AddCustomerTemplateView, DeleteCustomerTemplateView, \
     EditCustomerTemplateView, ExportDataTemplateView, send_email_view
+from .views import product_statistics_view, product_annotations_view
+from customer.views.customers import order_statistics_view, customer_annotations_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +26,8 @@ urlpatterns = [
     path('sending-mail/', send_email_view, name='share_mail'),
     path('verify-email-done/', verify_email_done, name='verify_email_done'),
     path('verify-email-confirm/<uidb64>/<token>/', verify_email_confirm, name='verify_email_confirm'),
+    path('product-statistics/', product_statistics_view, name='product_statistics'),
+    path('order-statistics/', order_statistics_view, name='order_statistics'),
+    path('product-annotations/', product_annotations_view, name='product_annotations'),
+    path('customer-annotations/', customer_annotations_view, name='customer_annotations'),
 ]
